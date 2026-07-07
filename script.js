@@ -1,4 +1,4 @@
-const LIFF_ID = '2010522633-RyI51ikg';
+const LIFF_ID = '2010632376-xzxeSvRC';
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbyL-pi9mzdAOPgeMbRWUGrMOeg4iR7nfD31SVbb1BWHiO-i_ftiuSauGTyx6EiV7nH3WA/exec';
 
 let calendarStatus = {};
@@ -584,4 +584,4 @@ async function initLiff() {
     console.error('LIFF初期化エラー:', error);
   }
 }
-// initLiff();
+initLiff();
