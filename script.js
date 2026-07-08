@@ -262,7 +262,7 @@ $('toDate').onclick = async () => {
   ];
 
   state.options = checked.map(x => x.value);
-    
+
   state.optionMinutes = checked.reduce(
     (sum, x) => sum + Number(x.dataset.minutes),
     0
@@ -496,10 +496,9 @@ function fillDone() {
 
   $('talkMsg').innerHTML =
     `【ご予約日時】<br>${dt}<br>`
-    + `所要時間（目安）：${durationText}<br><br>`
     + `【ご予約内容】<br>${state.type}<br>`
-    + `料金：¥${totalPrice.toLocaleString()}〜<br>`
-    + `オプション：${state.options.length ? state.options.join('・') : 'なし'}`;
+    + `オプション：${state.options.length ? state.options.join('・') : 'なし'}<br>`
+    + `料金：¥${totalPrice.toLocaleString()}〜`;
 }
 
 $('toLine').onclick = () => {
