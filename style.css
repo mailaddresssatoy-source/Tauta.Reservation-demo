@@ -678,8 +678,19 @@ textarea {
   display: inline-block;
   margin-left: 1em;
 }
-.notice-title{
-    color:#C97A00;
-    font-size:18px;
-    font-weight:700;
+.notice-title {
+  color: #C97A00;
+  font-size: 18px;
+  font-weight: 700;
+}
+.confirm-note ul {
+  margin: 10px 0 0;
+  padding-left: 1.2em;
+}
+.confirm-note li {
+  margin-bottom: 4px;
+  line-height: 1.6;
+}
+.confirm-note li:last-child {
+  margin-bottom: 0;
 }
