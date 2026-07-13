@@ -672,3 +672,9 @@ textarea {
 .price-total span:last-child {
   color: var(--text);
 }
+.form-note {
+  margin: 8px 0 12px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #666;
+}

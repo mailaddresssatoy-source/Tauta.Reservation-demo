@@ -26,11 +26,11 @@
         <h2>予約内容を選択してください</h2>
         <p class="lead">ご希望の予約内容をお選びください。</p>
         <div class="choices">
-          <button class="choice" data-type="Tauta.u Spa 60分 ショートコース" data-price="¥7,700〜" data-base-price="7700" data-duration="60"> <b><i class="bi bi-flower1"></i> Tauta.u Spa 60分</b> <small>ショートコース ／ ¥7,700〜</small> </button>
-          <button class="choice" data-type="Tauta.u Spa 90分 スタンダードコース" data-price="¥11,000〜" data-base-price="11000" data-duration="90"> <b><i class="bi bi-flower1"></i> Tauta.u Spa 90分</b> <small>スタンダードコース ／ ¥11,000〜</small> </button>
-          <button class="choice" data-type="Tauta.u Spa 120分 スタンダード＋コース" data-price="¥14,300〜" data-base-price="14300" data-duration="120"> <b><i class="bi bi-flower1"></i> Tauta.u Spa 120分</b> <small>スタンダード＋コース ／ ¥14,300〜</small> </button>
-          <button class="choice" data-type="Tauta.u Spa 150分 ロングコース" data-price="¥17,600〜" data-base-price="17600" data-duration="150"> <b><i class="bi bi-flower1"></i> Tauta.u Spa 150分</b> <small>ロングコース ／ ¥17,600〜</small> </button>
-          <button class="choice" data-type="Tauta.u Spa 180分 贅沢ロングコース" data-price="¥22,000" data-base-price="22000" data-duration="180"> <b><i class="bi bi-flower1"></i> Tauta.u Spa 180分</b> <small>贅沢ロングコース ／ ¥22,000</small> </button>
+          <button class="choice" data-type="Tauta.u Spa 60分 ショートコース" data-price="¥7,700〜" data-base-price="7700" data-duration="60"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 60分</b> <small>ショートコース ／ ¥7,700〜</small> </button>
+          <button class="choice" data-type="Tauta.u Spa 90分 スタンダードコース" data-price="¥11,000〜" data-base-price="11000" data-duration="90"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 90分</b> <small>スタンダードコース ／ ¥11,000〜</small> </button>
+          <button class="choice" data-type="Tauta.u Spa 120分 スタンダード＋コース" data-price="¥14,300〜" data-base-price="14300" data-duration="120"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 120分</b> <small>スタンダード＋コース ／ ¥14,300〜</small> </button>
+          <button class="choice" data-type="Tauta.u Spa 150分 ロングコース" data-price="¥17,600〜" data-base-price="17600" data-duration="150"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 150分</b> <small>ロングコース ／ ¥17,600〜</small> </button>
+          <button class="choice" data-type="Tauta.u Spa 180分 贅沢ロングコース" data-price="¥22,000" data-base-price="22000" data-duration="180"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 180分</b> <small>贅沢ロングコース ／ ¥22,000</small> </button>
         </div>
         <div class="option-box" id="optionBox">
           <h3>オプション追加</h3>
@@ -116,7 +116,10 @@
             <label>お電話番号</label>
             <input id="tel" type="tel" placeholder="例：090-0000-0000">
             <label>ご要望・ご相談 <span>任意</span></label>
-            <textarea id="memo" placeholder="例：首肩の疲れが気になります／子ども連れのため、キッズスペースを利用希望"></textarea>
+            <p class="form-note"> ご要望やご相談がございましたらご記入ください。<br>
+              ・お子様連れのお客様は、お子様の年齢・人数をご記入ください。<br>
+              ・ご紹介でご来店のお客様は、ご紹介者様のお名前をご記入ください。 </p>
+            <textarea id="memo" placeholder="例：首肩の疲れが気になります&#10;例：子ども2人（3歳・5歳）同伴です&#10;例：○○様のご紹介です"></textarea>
             <button class="primary" id="toConfirm">入力内容を確認する</button>
             <button class="secondary" id="changeCourse" type="button">コース・オプションを変更する</button>
           </div>
@@ -152,11 +155,22 @@
             <dd id="cfTel"></dd>
           </div>
           <div>
-            <dt>相談内容</dt>
+            <dt>ご要望・ご相談</dt>
             <dd id="cfMemo"></dd>
           </div>
         </dl>
-        <p class="note">ご予約内容をご確認のうえ、送信してください。</p>
+        <div class="confirm-note">
+          <p><strong>ご予約前にご確認ください</strong></p>
+          <ul>
+            <li>当日キャンセル・無断キャンセルはキャンセル料を頂戴しております。ご予約の変更・キャンセルは前日までにご連絡をお願いいたします。</li>
+            <li>飲酒されている方への施術はお受けできません。</li>
+            <li>カウンセリングの結果、施術をお断りさせていただく場合がございます。</li>
+            <li>お仕上げは簡単なブローとなります。</li>
+            <li>記載のお時間は、ご来店からお帰りまでの目安時間です。</li>
+            <li>当店は完全個室ではございません。</li>
+          </ul>
+        </div>
+        <p class="note"> 上記の内容をご確認いただき、問題がなければご予約へお進みください。 </p>
         <button class="primary" id="reserve">この内容で予約する</button>
         <button class="secondary" id="edit">内容を修正する</button>
       </div>
