@@ -21,7 +21,7 @@ let state = {
 };
 
 const $ = id => document.getElementById(id);
-const screens = ['s1', 's2', 's3', 'loading', 's4', 'talk'];
+const screens = ['s1', 's2', 's3', 'loading', 's4'];
 
 function show(id) {
   screens.forEach(s => $(s).classList.remove('active'));
@@ -603,6 +603,8 @@ $('reserve').onclick = async () => {
 function fillDone(lineSent) {
   const dt = `${fmt(state.date)} ${state.time}～`;
 
+  $('backBtn').style.display = 'none';
+    
   $('doneType').textContent = state.type;
   $('doneDate').textContent = dt;
 
@@ -614,58 +616,17 @@ function fillDone(lineSent) {
       'ご予約は完了しましたが、LINEメッセージを送信できませんでした。';
   }
 
-  $('talkMsg').innerHTML =
-    `【ご予約日時】<br>${dt}<br>`
-    + `【ご予約内容】<br>${state.type}<br>`
-    + `オプション：${state.options.length ? state.options.join('・') : 'なし'}<br>`
-    + `料金：${getTotalPriceText()}`;
+  if (typeof liff !== 'undefined' && liff.isInClient()) {
+    $('toLine').style.display = 'block';
+  } else {
+    $('toLine').style.display = 'none';
+  }
 }
 
 $('toLine').onclick = () => {
   if (typeof liff !== 'undefined' && liff.isInClient()) {
     liff.closeWindow();
-  } else {
-    show('talk');
   }
-};
-
-$('restart').onclick = () => {
-  state = {
-    type: '',
-    price: '',
-    basePrice: 0,
-    duration: 0,
-    options: [],
-    optionMinutes: 0,
-    optionPrice: 0,
-    date: '',
-    time: '',
-    y: new Date().getFullYear(),
-    m: new Date().getMonth()
-  };
-
-  calendarStatus = {};
-  daySlots = {};
-
-  $('detail').classList.remove('open');
-
-  document.querySelectorAll('input, textarea').forEach(e => {
-    e.value = '';
-  });
-
-  document.querySelectorAll('input[name="option"]').forEach(c => {
-    c.checked = false;
-  });
-
-  document.querySelectorAll('.choice').forEach(c => {
-    c.classList.remove('selected');
-  });
-
-  $('optionLabel').textContent = '';
-  $('optionLabel').style.display = 'none';
-  $('typeLabel').textContent = '';
-
-  show('s1');
 };
 
 $('backBtn').onclick = () => {
@@ -674,7 +635,7 @@ $('backBtn').onclick = () => {
   } else if ($('s3').classList.contains('active')) {
     show('s2');
   } else if ($('s4').classList.contains('active')) {
-    show('s3');
+    return;
   } else {
     show('s1');
   }
