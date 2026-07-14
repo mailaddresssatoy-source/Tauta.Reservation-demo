@@ -1,5 +1,6 @@
 const LIFF_ID = '2010632376-xzxeSvRC';
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbyL-pi9mzdAOPgeMbRWUGrMOeg4iR7nfD31SVbb1BWHiO-i_ftiuSauGTyx6EiV7nH3WA/exec';
+const now = new Date();
 
 let calendarStatus = {};
 let daySlots = {};
@@ -15,8 +16,8 @@ let state = {
   optionPrice: 0,
   date: '',
   time: '',
-  y: 2026,
-  m: 6
+  y: now.getFullYear(),
+  m: now.getMonth()
 };
 
 const $ = id => document.getElementById(id);
@@ -29,6 +30,32 @@ function show(id) {
     top: 0,
     behavior: 'smooth'
   });
+}
+
+function showError(message) {
+  const errorBox = $('errorMessage');
+
+  if (!errorBox) {
+    alert(message);
+    return;
+  }
+
+  errorBox.textContent = message;
+  errorBox.classList.add('show');
+
+  errorBox.scrollIntoView({
+    behavior: 'smooth',
+    block: 'center'
+  });
+}
+
+function clearError() {
+  const errorBox = $('errorMessage');
+
+  if (!errorBox) return;
+
+  errorBox.textContent = '';
+  errorBox.classList.remove('show');
 }
 
 function key(y, m, d) {
@@ -48,6 +75,13 @@ function fmtDuration(minutes) {
   if (h && m) return `約${h}時間${m}分`;
   if (h) return `約${h}時間`;
   return `約${m}分`;
+}
+
+function getTotalPriceText() {
+  const totalPrice = state.basePrice + state.optionPrice;
+  const suffix = state.price.includes('〜') ? '〜' : '';
+
+  return `¥${totalPrice.toLocaleString()}${suffix}`;
 }
 
 function stat(k) {
@@ -148,6 +182,14 @@ function renderCal() {
   const start = first.getDay();
   const last = new Date(state.y, state.m + 1, 0).getDate();
 
+  // 今日の日付を「YYYY-MM-DD」形式で取得
+  const today = new Date();
+  const todayKey = key(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate()
+  );
+
   for (let i = 0; i < start; i++) {
     const e = document.createElement('div');
     e.className = 'day day-empty';
@@ -158,12 +200,32 @@ function renderCal() {
     const k = key(state.y, state.m, d);
     const s = stat(k);
 
+    // 過去日・当日をそれぞれ判定
+    const isPastDate = k < todayKey;
+    const isToday = k === todayKey;
+    const isUnavailableDate = isPastDate || isToday;
+
     const b = document.createElement('button');
     b.type = 'button';
-    b.className = `day ${s.c}${state.date === k ? ' day-selected' : ''}`;
-    b.innerHTML = `<span class="day-num">${d}</span><span class="day-status">${s.l}</span>`;
 
-    if (s.c === 'day-ng') {
+    b.className =
+      `day ${isUnavailableDate ? 'day-past' : s.c}`
+      + `${state.date === k ? ' day-selected' : ''}`;
+
+    b.innerHTML = `
+  <span class="day-num">${d}</span>
+  <span class="day-status">
+    ${
+      isToday
+        ? '<i class="bi bi-telephone-fill"></i>'
+        : isPastDate
+          ? '<i class="bi bi-dash-lg"></i>'
+          : s.l
+    }
+  </span>
+`;
+
+    if (isUnavailableDate || s.c === 'day-ng') {
       b.disabled = true;
     } else {
       b.onclick = async () => {
@@ -171,7 +233,6 @@ function renderCal() {
         state.time = '';
 
         $('detail').classList.add('open');
-
         renderCal();
 
         setTimeout(() => {
@@ -181,13 +242,9 @@ function renderCal() {
         }, 120);
 
         if (!daySlots[k]) {
-
           await loadDaySlots(k);
-
         } else {
-
           renderTimes();
-
         }
       };
     }
@@ -197,11 +254,16 @@ function renderCal() {
 
   const totalCells = start + last;
   const trailing = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+
   for (let i = 0; i < trailing; i++) {
     const e = document.createElement('div');
     e.className = 'day day-empty';
     days.appendChild(e);
   }
+  const current = new Date();
+  $('prev').disabled =
+    state.y === current.getFullYear()
+    && state.m === current.getMonth();
 }
 
 function renderTimes() {
@@ -252,6 +314,7 @@ document.querySelectorAll('.choice').forEach(b => {
 });
 
 $('toDate').onclick = async () => {
+  clearError();
 
   if (!state.type) {
     return alert('コースを選択してください。');
@@ -294,6 +357,16 @@ $('toDate').onclick = async () => {
 };
 
 $('prev').onclick = async () => {
+  clearError();
+  const current = new Date();
+  const currentYear = current.getFullYear();
+  const currentMonth = current.getMonth();
+
+  // 現在月を表示している場合は、前月へ移動しない
+  if (state.y === currentYear && state.m === currentMonth) {
+    return;
+  }
+
   state.m--;
 
   if (state.m < 0) {
@@ -308,10 +381,10 @@ $('prev').onclick = async () => {
   $('detail').classList.remove('open');
 
   await loadCalendarStatus();
-
 };
 
 $('next').onclick = async () => {
+  clearError();
   state.m++;
 
   if (state.m > 11) {
@@ -329,23 +402,47 @@ $('next').onclick = async () => {
 };
 
 $('toConfirm').onclick = () => {
+  clearError();
 
   if (!state.date || !state.time) {
-    return alert('ご希望日時を選択してください。');
+    showError('ご希望日時を選択してください。');
+    return;
   }
 
-  if (!$('name').value.trim()) {
-    return alert('お名前を入力してください。');
+  const name = $('name').value.trim();
+
+  if (!name) {
+    showError('お名前を入力してください。');
+    return;
+  }
+
+  if (name.length > 50) {
+    showError('お名前は50文字以内で入力してください。');
+    return;
+  }
+
+  if (/[\r\n\t]/.test(name)) {
+    showError('お名前を正しく入力してください。');
+    return;
   }
 
   const tel = $('tel').value.trim();
 
   if (!tel) {
-    return alert('お電話番号を入力してください。');
+    showError('お電話番号を入力してください。');
+    return;
   }
 
-  if (!/^[0-9\-]+$/.test(tel)) {
-    return alert('電話番号を正しく入力してください。');
+  const telDigits = tel.replace(/-/g, '');
+
+  if (!/^[0-9-]+$/.test(tel)) {
+    showError('電話番号は数字とハイフンで入力してください。');
+    return;
+  }
+
+  if (!/^\d{10,11}$/.test(telDigits)) {
+    showError('電話番号を10桁または11桁で入力してください。');
+    return;
   }
 
   fillConfirm();
@@ -362,17 +459,16 @@ function fillConfirm() {
   $('cfTel').textContent = tel;
   $('cfMemo').textContent = memo;
 
-  const totalPrice = state.basePrice + state.optionPrice;
   const optionLines = state.options.map(option => {
     return `<div class="price-row"><span>${option}</span><span>¥1,100</span></div>`;
   }).join('');
 
   $('cfSummary').innerHTML =
     `<div class="price-list">
-    <div class="price-row"><span>${state.type}</span><span>${state.price}</span></div>
-    ${optionLines}
-    <div class="price-total"><span>合計</span><span>¥${totalPrice.toLocaleString()}〜</span></div>
-  </div>`;
+      <div class="price-row"><span>${state.type}</span><span>${state.price}</span></div>
+      ${optionLines}
+      <div class="price-total"><span>合計</span><span>${getTotalPriceText()}</span></div>
+    </div>`;
 }
 
 $('edit').onclick = async () => {
@@ -438,7 +534,7 @@ $('reserve').onclick = async () => {
 
   const reservation = {
     type: state.type,
-    price: `¥${(state.basePrice + state.optionPrice).toLocaleString()}〜`,
+    price: getTotalPriceText(),
     basePrice: state.basePrice,
     optionPrice: state.optionPrice,
     duration: state.duration,
@@ -463,9 +559,24 @@ $('reserve').onclick = async () => {
 
 
     if (!result.success) {
-      alert(result.message);
+      const failedDate = state.date;
+
+      state.time = '';
+      delete daySlots[failedDate];
+
       show('s2');
       await loadCalendarStatus();
+
+      if (failedDate) {
+        $('detail').classList.add('open');
+        await loadDaySlots(failedDate);
+      }
+
+      showError(
+        result.message
+        || '予約を完了できませんでした。内容をご確認のうえ、もう一度お試しください。'
+      );
+
       return;
     }
 
@@ -473,32 +584,41 @@ $('reserve').onclick = async () => {
 
     await new Promise(r => setTimeout(r, 1000));
 
-    fillDone();
+    fillDone(result.lineSent);
     show('s4');
     calendarStatus = {};
-
     daySlots = {};
 
   } catch (e) {
     console.error(e);
-    alert('予約登録に失敗しました。');
+
     show('s2');
+
+    showError(
+      '通信エラーが発生しました。予約が登録されている可能性がありますので、再送信する前に店舗へご確認ください。'
+    );
   }
 };
 
-function fillDone() {
+function fillDone(lineSent) {
   const dt = `${fmt(state.date)} ${state.time}～`;
-  const durationText = fmtDuration(state.duration + state.optionMinutes);
-  const totalPrice = state.basePrice + state.optionPrice;
 
   $('doneType').textContent = state.type;
   $('doneDate').textContent = dt;
+
+  if (lineSent) {
+    $('doneMessage').textContent =
+      '確認メッセージをLINEへお送りしました。';
+  } else {
+    $('doneMessage').textContent =
+      'ご予約は完了しましたが、LINEメッセージを送信できませんでした。';
+  }
 
   $('talkMsg').innerHTML =
     `【ご予約日時】<br>${dt}<br>`
     + `【ご予約内容】<br>${state.type}<br>`
     + `オプション：${state.options.length ? state.options.join('・') : 'なし'}<br>`
-    + `料金：¥${totalPrice.toLocaleString()}〜`;
+    + `料金：${getTotalPriceText()}`;
 }
 
 $('toLine').onclick = () => {
@@ -520,8 +640,8 @@ $('restart').onclick = () => {
     optionPrice: 0,
     date: '',
     time: '',
-    y: 2026,
-    m: 6
+    y: new Date().getFullYear(),
+    m: new Date().getMonth()
   };
 
   calendarStatus = {};

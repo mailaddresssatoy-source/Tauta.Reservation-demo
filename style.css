@@ -1,8 +1,6 @@
 :root {
   --primary: #6CBF47;
   --soft: #EDF8E8;
-  --gold: #7CB342;
-  --line: #06C755;
   --bg: #f5f2ea;
   --card: #fff;
   --text: #263044;
@@ -207,6 +205,10 @@ h2 {
   color: var(--primary);
   font-size: 26px
 }
+.month button:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
 .legend {
   display: flex;
   gap: 10px;
@@ -280,7 +282,7 @@ h2 {
   font-size: 13px
 }
 .day-status {
-  font-size: 10px;
+  font-size: 16px;
   font-weight: 900;
   border-radius: 999px;
   padding: 1px 4px;
@@ -300,8 +302,16 @@ h2 {
 .day-ng .day-status {
   color: #9aa3b2
 }
-.day-status {
-  font-size: 16px
+.day-past {
+  background: #f3f4f6;
+  color: #b0b6c0;
+  cursor: not-allowed;
+}
+.day-past .day-status {
+  color: #b0b6c0;
+}
+.day-past:disabled {
+  opacity: 1;
 }
 .day-selected {
   outline: 3px solid rgba(108, 191, 71, .35);
@@ -365,9 +375,9 @@ label:not(.option-item) {
   font-weight: 700;
   margin: 14px 0 6px;
 }
-label span {
+label:not(.option-item) span {
   font-size: 12px;
-  color: var(--muted)
+  color: var(--muted);
 }
 input, textarea {
   width: 100%;
@@ -693,4 +703,24 @@ textarea {
 }
 .confirm-note li:last-child {
   margin-bottom: 0;
+}
+.error-message {
+  display: none;
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border: 1px solid #e6a5a5;
+  border-radius: 12px;
+  background: #fff1f1;
+  color: #9f2f2f;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.error-message.show {
+  display: block;
+}
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(108, 191, 71, .35);
+  outline-offset: 2px;
 }

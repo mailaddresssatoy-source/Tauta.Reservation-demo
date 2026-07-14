@@ -10,7 +10,7 @@
 <body>
 <div class="app">
   <header class="header">
-    <button id="backBtn">‹</button>
+    <button id="backBtn" type="button" aria-label="前の画面へ戻る">‹</button>
     <div class="header-center">
       <img src="images/Tauta.logo.svg" alt="Tauta." class="header-logo">
       <h1>予約フォーム</h1>
@@ -26,11 +26,11 @@
         <h2>予約内容を選択してください</h2>
         <p class="lead">ご希望の予約内容をお選びください。</p>
         <div class="choices">
-          <button class="choice" data-type="Tauta.u Spa 60分 ショートコース" data-price="¥7,700〜" data-base-price="7700" data-duration="60"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 60分</b> <small>ショートコース ／ ¥7,700〜</small> </button>
-          <button class="choice" data-type="Tauta.u Spa 90分 スタンダードコース" data-price="¥11,000〜" data-base-price="11000" data-duration="90"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 90分</b> <small>スタンダードコース ／ ¥11,000〜</small> </button>
-          <button class="choice" data-type="Tauta.u Spa 120分 スタンダード＋コース" data-price="¥14,300〜" data-base-price="14300" data-duration="120"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 120分</b> <small>スタンダード＋コース ／ ¥14,300〜</small> </button>
-          <button class="choice" data-type="Tauta.u Spa 150分 ロングコース" data-price="¥17,600〜" data-base-price="17600" data-duration="150"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 150分</b> <small>ロングコース ／ ¥17,600〜</small> </button>
-          <button class="choice" data-type="Tauta.u Spa 180分 贅沢ロングコース" data-price="¥22,000" data-base-price="22000" data-duration="180"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 180分</b> <small>贅沢ロングコース ／ ¥22,000</small> </button>
+          <button type="button" class="choice" data-type="Tauta.u Spa 60分 ショートコース" data-price="¥7,700〜" data-base-price="7700" data-duration="60"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 60分</b> <small>ショートコース ／ ¥7,700〜</small> </button>
+          <button type="button" class="choice" data-type="Tauta.u Spa 90分 スタンダードコース" data-price="¥11,000〜" data-base-price="11000" data-duration="90"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 90分</b> <small>スタンダードコース ／ ¥11,000〜</small> </button>
+          <button type="button" class="choice" data-type="Tauta.u Spa 120分 スタンダード＋コース" data-price="¥14,300〜" data-base-price="14300" data-duration="120"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 120分</b> <small>スタンダード＋コース ／ ¥14,300〜</small> </button>
+          <button type="button" class="choice" data-type="Tauta.u Spa 150分 ロングコース" data-price="¥17,600〜" data-base-price="17600" data-duration="150"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 150分</b> <small>ロングコース ／ ¥17,600〜</small> </button>
+          <button type="button" class="choice" data-type="Tauta.u Spa 180分 贅沢ロングコース" data-price="¥22,000" data-base-price="22000" data-duration="180"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 180分</b> <small>贅沢ロングコース ／ ¥22,000</small> </button>
         </div>
         <div class="option-box" id="optionBox">
           <h3>オプション追加</h3>
@@ -39,23 +39,14 @@
             全オプション　＋15分　＋¥1,100
           </div>
           <label class="option-item">
-          <input class="option-check" type="checkbox" name="option" value="首肩こり" data-minutes="15" data-price="1100">
-          <div class="option-info">
-            <b>首肩こり</b> <small>首・肩こりに効くツボ押し</small>
-          </div>
-          </label>
+            <input class="option-check" type="checkbox" name="option" value="首肩こり" data-minutes="15" data-price="1100">
+            <span class="option-info"> <b>首肩こり</b> <small>首・肩こりに効くツボ押し</small> </span> </label>
           <label class="option-item">
-          <input class="option-check" type="checkbox" name="option" value="リフトアップ" data-minutes="15" data-price="1100">
-          <div class="option-info">
-            <b>リフトアップ</b> <small>フェイスラインの引き上げ・むくみ解消</small>
-          </div>
-          </label>
+            <input class="option-check" type="checkbox" name="option" value="リフトアップ" data-minutes="15" data-price="1100">
+            <span class="option-info"> <b>リフトアップ</b> <small>フェイスラインの引き上げ・むくみ解消</small> </span> </label>
           <label class="option-item">
-          <input class="option-check" type="checkbox" name="option" value="目の疲れ" data-minutes="15" data-price="1100">
-          <div class="option-info">
-            <b>目の疲れ</b> <small>目の疲れにアプローチするツボ押し</small>
-          </div>
-          </label>
+            <input class="option-check" type="checkbox" name="option" value="目の疲れ" data-minutes="15" data-price="1100">
+            <span class="option-info"> <b>目の疲れ</b> <small>目の疲れにアプローチするツボ押し</small> </span> </label>
         </div>
         <button class="primary" id="toDate" type="button">日時を選択する</button>
       </div>
@@ -65,15 +56,17 @@
         <span class="done">内容</span><span class="on">日時</span><span>確認</span><span>完了</span>
       </div>
       <div class="card">
-        <p class="en">Date & Time</p>
+        <p class="en">Date &amp; Time</p>
         <h2>ご希望日時を選択してください</h2>
+        <div id="errorMessage" class="error-message" role="alert" aria-live="assertive">
+        </div>
         <div class="pill" id="typeLabel">
         </div>
         <p class="option-summary" id="optionLabel"></p>
         <div class="month">
-          <button id="prev">‹</button>
+          <button id="prev" type="button" aria-label="前の月">‹</button>
           <b id="monthLabel"></b>
-          <button id="next">›</button>
+          <button id="next" type="button" aria-label="次の月">›</button>
         </div>
         <div class="legend">
           <span><i class="bi bi-circle ok"></i>空きあり</span> <span><i class="bi bi-triangle few"></i>残りわずか</span> <span><i class="bi bi-x-lg ng"></i>受付終了</span>
@@ -103,7 +96,9 @@
           <div id="days" class="days">
           </div>
         </div>
-        <p class="biz">営業時間 10:00〜17:00 ／ 定休日 不定休</p>
+        <p class="biz">営業時間 10:00〜17:00 ／ 定休日 不定休<br>
+          ご予約は前日まで承っております。<br>
+          当日のご予約はお電話にてお問い合わせください。</p>
         <div id="detail" class="detail">
           <div class="box">
             <h3 id="timeTitle">時間を選択してください</h3>
@@ -111,19 +106,19 @@
             </div>
           </div>
           <div class="box form">
-            <label>お名前</label>
-            <input id="name" placeholder="例：佐藤">
-            <label>お電話番号</label>
-            <input id="tel" type="tel" placeholder="例：090-0000-0000">
-            <label>ご要望・ご相談 <span>任意</span></label>
-            <p class="form-note"> ご要望やご相談がございましたらご記入ください。<br>
-              ・お子様連れのお客様<br>
+            <label for="name">お名前</label>
+            <input type="text" id="name" maxlength="50" autocomplete="name" placeholder="例：佐藤">
+            <label for="tel">お電話番号</label>
+            <input id="tel" type="tel" maxlength="14" autocomplete="tel" inputmode="tel" pattern="[0-9\-]*" placeholder="例：090-0000-0000">
+            <label for="memo"> ご要望・ご相談 <span>任意</span> </label>
+            <p class="form-note"> ＜お子様連れのお客様＞<br>
               <span class="indent">お子様の年齢・人数をご記入ください。</span><br>
-              ・ご紹介でご来店のお客様<br>
-              <span class="indent">ご紹介者様のお名前をご記入ください。</span> </p>
+              ＜ご紹介でご来店のお客様＞<br>
+              <span class="indent">ご紹介者様のお名前をご記入ください。</span><br>
+              その他、ご要望やご相談がございましたらご記入ください。 </p>
             <textarea id="memo" placeholder="例：首肩の疲れが気になります&#10;例：子ども2人（3歳・5歳）同伴です&#10;例：○○様のご紹介です"></textarea>
-            <button class="primary" id="toConfirm">入力内容を確認する</button>
-            <button class="secondary" id="changeCourse" type="button">コース・オプションを変更する</button>
+            <button class="primary" id="toConfirm" type="button"> 入力内容を確認する </button>
+            <button class="secondary" id="changeCourse" type="button"> コース・オプションを変更する </button>
           </div>
         </div>
       </div>
@@ -173,8 +168,8 @@
           </ul>
         </div>
         <p class="note"> 上記の内容をご確認いただき、問題がなければご予約へお進みください。 </p>
-        <button class="primary" id="reserve">この内容で予約する</button>
-        <button class="secondary" id="edit">内容を修正する</button>
+        <button class="primary" id="reserve" type="button">この内容で予約する</button>
+        <button class="secondary" id="edit" type="button">内容を修正する</button>
       </div>
     </section>
     <section class="screen" id="loading">
@@ -196,11 +191,11 @@
           ✓
         </div>
         <h2>ご予約を承りました</h2>
-        <p class="lead">確認メッセージをLINEへお送りしました。</p>
+        <p class="lead" id="doneMessage"> 確認メッセージをLINEへお送りしました。 </p>
         <div class="summary">
           <b id="doneType"></b> <span id="doneDate"></span>
         </div>
-        <button class="primary" id="toLine">LINEへ戻る</button>
+        <button class="primary" id="toLine" type="button">LINEへ戻る</button>
       </div>
     </section>
     <section class="screen" id="talk">
@@ -215,7 +210,7 @@
             <p>当日のご来店をお待ちしております。</p>
           </div>
         </div>
-        <button class="primary restart" id="restart">もう一度デモを見る</button>
+        <button class="primary restart" id="restart" type="button"> 別の予約をする </button>
       </div>
     </section>
   </main>
