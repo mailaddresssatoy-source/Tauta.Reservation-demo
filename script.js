@@ -437,10 +437,10 @@ $('toConfirm').onclick = () => {
     return;
   }
 
-  const telDigits = tel.replace(/-/g, '');
+  const telDigits = tel.replace(/[\s-]/g, '');
 
-  if (!/^[0-9-]+$/.test(tel)) {
-    showError('電話番号は数字とハイフンで入力してください。');
+  if (!/^[0-9\s-]+$/.test(tel)) {
+    showError('電話番号は数字・スペース・ハイフンで入力してください。');
     return;
   }
 
