@@ -235,17 +235,21 @@ function renderCal() {
         $('detail').classList.add('open');
         renderCal();
 
-        setTimeout(() => {
-          $('detail').scrollIntoView({
-            behavior: 'smooth'
-          });
-        }, 120);
-
         if (!daySlots[k]) {
           await loadDaySlots(k);
         } else {
           renderTimes();
         }
+
+        // 時間枠の表示が完了してから、時間選択欄へスクロール
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            $('timeTitle').scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          });
+        });
       };
     }
 
@@ -604,7 +608,7 @@ function fillDone(lineSent) {
   const dt = `${fmt(state.date)} ${state.time}～`;
 
   $('backBtn').style.display = 'none';
-    
+
   $('doneType').textContent = state.type;
   $('doneDate').textContent = dt;
 

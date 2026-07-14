@@ -718,9 +718,10 @@ textarea {
 .error-message.show {
   display: block;
 }
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
+button:focus-visible, input:focus-visible, textarea:focus-visible {
   outline: 3px solid rgba(108, 191, 71, .35);
   outline-offset: 2px;
+}
+#timeTitle {
+  scroll-margin-top: 100px;
 }
