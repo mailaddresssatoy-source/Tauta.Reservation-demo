@@ -132,12 +132,22 @@ async function loadCalendarStatus() {
     $('days').innerHTML = '';
 
     const response = await fetch(url);
-    calendarStatus = await response.json();
+    const result = await response.json();
 
+    if (!response.ok || result.success === false) {
+      throw new Error(
+        result.message || 'カレンダーの取得に失敗しました。'
+      );
+    }
+
+    calendarStatus = result;
     renderCal();
   } catch (error) {
     console.error(error);
-    alert('カレンダーの取得に失敗しました。');
+
+    showError(
+      error.message || 'カレンダーの取得に失敗しました。'
+    );
   }
 }
 
@@ -159,9 +169,10 @@ async function loadDaySlots(date) {
     const response = await fetch(url);
     const result = await response.json();
 
-    if (!result.success) {
-      alert(result.message || '空き時間の取得に失敗しました。');
-      return;
+    if (!response.ok || result.success === false) {
+      throw new Error(
+        result.message || '空き時間の取得に失敗しました。'
+      );
     }
 
     daySlots[date] = result.times || [];
@@ -169,7 +180,10 @@ async function loadDaySlots(date) {
 
   } catch (error) {
     console.error(error);
-    alert('空き時間の取得に失敗しました。');
+
+    showError(
+      error.message || '空き時間の取得に失敗しました。'
+    );
   }
 }
 
@@ -437,10 +451,12 @@ $('toConfirm').onclick = () => {
     return;
   }
 
-  const telDigits = tel.replace(/[\s-]/g, '');
+  const telDigits = tel.replace(/[ \u3000-]/g, '');
 
-  if (!/^[0-9\s-]+$/.test(tel)) {
-    showError('電話番号は半角数字で入力してください。（スペース・ハイフン可）');
+  if (!/^[0-9 \u3000-]+$/.test(tel)) {
+    showError(
+      '電話番号は半角数字で入力してください。（スペース・ハイフン可）'
+    );
     return;
   }
 
