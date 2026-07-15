@@ -146,7 +146,7 @@ async function loadCalendarStatus() {
     console.error(error);
 
     showError(
-      error.message || 'カレンダーの取得に失敗しました。'
+      'カレンダーの取得に失敗しました。通信環境をご確認ください。'
     );
   }
 }
@@ -154,7 +154,6 @@ async function loadCalendarStatus() {
 async function loadDaySlots(date) {
   try {
     const type = encodeURIComponent(state.type);
-
     const totalMinutes = state.duration + state.optionMinutes;
 
     const url =
@@ -169,21 +168,30 @@ async function loadDaySlots(date) {
     const response = await fetch(url);
     const result = await response.json();
 
-    if (!response.ok || result.success === false) {
-      throw new Error(
+    if (!response.ok) {
+      throw new Error('通信エラー');
+    }
+
+    if (result.success === false) {
+      showError(
         result.message || '空き時間の取得に失敗しました。'
       );
+      return false;
     }
 
     daySlots[date] = result.times || [];
     renderTimes();
 
+    return true;
+
   } catch (error) {
     console.error(error);
 
     showError(
-      error.message || '空き時間の取得に失敗しました。'
+      '空き時間の取得に失敗しました。通信環境をご確認ください。'
     );
+
+    return false;
   }
 }
 
@@ -249,10 +257,16 @@ function renderCal() {
         $('detail').classList.add('open');
         renderCal();
 
+        let loaded = true;
+
         if (!daySlots[k]) {
-          await loadDaySlots(k);
+          loaded = await loadDaySlots(k);
         } else {
           renderTimes();
+        }
+
+        if (!loaded) {
+          return;
         }
 
         // 時間枠の表示が完了してから、時間選択欄へスクロール
