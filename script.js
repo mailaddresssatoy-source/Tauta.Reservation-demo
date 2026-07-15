@@ -440,7 +440,7 @@ $('toConfirm').onclick = () => {
   const telDigits = tel.replace(/[\s-]/g, '');
 
   if (!/^[0-9\s-]+$/.test(tel)) {
-    showError('電話番号は数字・スペース・ハイフンで入力してください。');
+    showError('電話番号は半角数字で入力してください。（スペース・ハイフン可）');
     return;
   }
 
