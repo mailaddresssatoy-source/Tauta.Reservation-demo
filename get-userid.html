@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>userId取得</title>
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<style>
+body{
+    font-family:sans-serif;
+    text-align:center;
+    padding:40px 20px;
+}
+pre{
+    background:#f5f5f5;
+    padding:15px;
+    border-radius:8px;
+    word-break:break-all;
+}
+</style>
+</head>
+
+<body>
+
+<h2>LINE userId</h2>
+
+<p id="status">取得中...</p>
+
+<pre id="userid"></pre>
+
+<script>
+
+async function init(){
+
+    await liff.init({
+        liffId:"2010632376-xzxeSvRC"
+    });
+
+    if(!liff.isLoggedIn()){
+        liff.login();
+        return;
+    }
+
+    const profile = await liff.getProfile();
+
+    document.getElementById("status").innerText="取得完了";
+
+    document.getElementById("userid").innerText=profile.userId;
+
+}
+
+init();
+
+</script>
+
+</body>
+</html>
