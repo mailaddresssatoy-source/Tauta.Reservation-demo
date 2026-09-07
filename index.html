@@ -65,12 +65,6 @@
         <div class="pill" id="typeLabel">
         </div>
         <p class="option-summary" id="optionLabel"></p>
-        <div class="staff-guide">
-          <p class="staff-guide-title"> <i class="bi bi-person"></i> 担当スタッフについて </p>
-          <p> 平日・土曜日：<strong>スパニスト Yuka</strong><br>
-            日曜日・祝日：<strong>スパニスト Maki</strong> </p>
-          <small> ※出勤状況により担当スタッフが変更となる場合があります。 </small>
-        </div>
         <div class="month">
           <button id="prev" type="button" aria-label="前の月">‹</button>
           <b id="monthLabel"></b>
@@ -107,6 +101,12 @@
         <p class="biz">営業時間 10:00〜17:00 ／ 定休日 不定休<br>
           ご予約は前日まで承っております。<br>
           当日のご予約はお電話にてお問い合わせください。</p>
+        <div class="staff-guide">
+          <p class="staff-guide-title"> <i class="bi bi-person"></i> 担当スタッフについて </p>
+          <p> 平日・土曜日：スパニスト Yuka<br>
+            日曜日・祝日：スパニスト Maki</p>
+          <small> ※出勤状況により担当スタッフが変更となる場合があります。 </small>
+        </div>
         <div id="detail" class="detail">
           <div class="box">
             <h3 id="timeTitle">時間を選択してください</h3>
@@ -201,18 +201,13 @@
         <h2>ご予約を承りました</h2>
         <p class="lead" id="doneMessage"> 確認メッセージをLINEへお送りしました。 </p>
         <div class="summary">
-  <b id="doneType"></b>
-  <span id="doneDate"></span>
-
-  <div class="done-staff">
-    担当：スパニスト <strong id="doneStaff"></strong>
-  </div>
-</div>
-
-<p class="staff-change-note">
-  ※出勤状況により担当スタッフが変更となる場合があります。<br>
-  変更となる場合は、ご予約確定後にLINEにてご連絡いたします。
-</p>
+          <b id="doneType"></b> <span id="doneDate"></span>
+          <div class="done-staff">
+            担当：スパニスト <span id="doneStaff"></strong>
+          </div>
+        </div>
+        <p class="staff-change-note"> ※出勤状況により担当スタッフが変更となる場合があります。<br>
+          変更となる場合は、ご予約確定後にLINEにてご連絡いたします。 </p>
         <button class="primary" id="toLine" type="button">LINEへ戻る</button>
       </div>
     </section>
