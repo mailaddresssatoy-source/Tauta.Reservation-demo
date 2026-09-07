@@ -725,3 +725,27 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
 #timeTitle {
   scroll-margin-top: 100px;
 }
+.staff-guide {
+  margin-top: 18px;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.staff-guide-title {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.staff-guide p {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.7;
+}
+.staff-guide small {
+  display: block;
+  margin-top: 8px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--muted);
+}
