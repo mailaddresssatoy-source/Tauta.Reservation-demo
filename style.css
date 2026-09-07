@@ -755,8 +755,9 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
   font-weight: 400;
   color: var(--text);
 }
-
 .done-staff #doneStaff {
+  display: inline;
   color: inherit;
   font-weight: inherit;
+  margin-top: 0;
 }
