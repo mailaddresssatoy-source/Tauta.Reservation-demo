@@ -18,6 +18,7 @@ let state = {
   optionPrice: 0,
   date: '',
   time: '',
+  staffName: '',
   y: now.getFullYear(),
   m: now.getMonth()
 };
@@ -182,6 +183,7 @@ async function loadDaySlots(date) {
     }
 
     daySlots[date] = result.times || [];
+    state.staffName = result.staffName || '';
     renderTimes();
 
     return true;
@@ -255,7 +257,7 @@ function renderCal() {
       b.onclick = async () => {
         state.date = k;
         state.time = '';
-
+        state.staffName = '';
         $('detail').classList.add('open');
         renderCal();
 
@@ -505,6 +507,10 @@ function fillConfirm() {
       ${optionLines}
       <div class="price-total"><span>合計</span><span>${getTotalPriceText()}</span></div>
     </div>`;
+
+  $('cfStaff').textContent = state.staffName
+    ? `スパニスト ${state.staffName}`
+    : '確認中';
 }
 
 $('edit').onclick = async () => {
@@ -532,6 +538,7 @@ $('changeCourse').onclick = () => {
   state.optionPrice = 0;
   state.date = '';
   state.time = '';
+  state.staffName = '';
 
   daySlots = {};
   calendarStatus = {};
@@ -620,6 +627,7 @@ $('reserve').onclick = async () => {
 
     await new Promise(r => setTimeout(r, 1000));
 
+    state.staffName = result.staffName || '';
     fillDone(result.lineSent, result.staffName);
     show('s4');
     calendarStatus = {};
