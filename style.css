@@ -749,3 +749,14 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
   line-height: 1.6;
   color: var(--muted);
 }
+.done-staff {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.done-staff #doneStaff {
+  color: inherit;
+  font-weight: inherit;
+}
