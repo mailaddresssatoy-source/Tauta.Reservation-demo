@@ -28,11 +28,11 @@
         <h2>予約内容を選択してください</h2>
         <p class="lead">ご希望の予約内容をお選びください。</p>
         <div class="choices">
-          <button type="button" class="choice" data-type="Tauta.u Spa 60分 ショートコース" data-price="¥7,700〜" data-base-price="7700" data-duration="60"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 60分</b> <small>ショートコース ／ ¥7,700〜</small> </button>
-          <button type="button" class="choice" data-type="Tauta.u Spa 90分 スタンダードコース" data-price="¥11,000〜" data-base-price="11000" data-duration="90"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 90分</b> <small>スタンダードコース ／ ¥11,000〜</small> </button>
-          <button type="button" class="choice" data-type="Tauta.u Spa 120分 スタンダード＋コース" data-price="¥14,300〜" data-base-price="14300" data-duration="120"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 120分</b> <small>スタンダード＋コース ／ ¥14,300〜</small> </button>
-          <button type="button" class="choice" data-type="Tauta.u Spa 150分 ロングコース" data-price="¥17,600〜" data-base-price="17600" data-duration="150"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 150分</b> <small>ロングコース ／ ¥17,600〜</small> </button>
-          <button type="button" class="choice" data-type="Tauta.u Spa 180分 贅沢ロングコース" data-price="¥22,000" data-base-price="22000" data-duration="180"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 180分</b> <small>贅沢ロングコース ／ ¥22,000</small> </button>
+          <button type="button" class="choice" data-type="Tauta.u Spa 60分 ショートコース" data-price="¥8,800〜" data-base-price="8800" data-duration="60"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 60分</b> <small>ショートコース ／ ¥8,800〜</small> </button>
+          <button type="button" class="choice" data-type="Tauta.u Spa 90分 スタンダードコース" data-price="¥12,000〜" data-base-price="12000" data-duration="90"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 90分</b> <small>スタンダードコース ／ ¥12,000〜</small> </button>
+          <button type="button" class="choice" data-type="Tauta.u Spa 120分 スタンダード＋コース" data-price="¥15,800〜" data-base-price="15800" data-duration="120"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 120分</b> <small>スタンダード＋コース ／ ¥15,800〜</small> </button>
+          <button type="button" class="choice" data-type="Tauta.u Spa 150分 ロングコース" data-price="¥19,600〜" data-base-price="19600" data-duration="150"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 150分</b> <small>ロングコース ／ ¥19,600〜</small> </button>
+          <button type="button" class="choice" data-type="Tauta.u Spa 180分 贅沢ロングコース" data-price="¥24,500" data-base-price="24500" data-duration="180"> <b><i class="bi bi-flower2"></i> Tauta.u Spa 180分</b> <small>贅沢ロングコース ／ ¥24,500</small> </button>
         </div>
         <div class="option-box" id="optionBox">
           <h3>オプション追加</h3>
@@ -65,6 +65,12 @@
         <div class="pill" id="typeLabel">
         </div>
         <p class="option-summary" id="optionLabel"></p>
+        <div class="staff-guide">
+          <p class="staff-guide-title"> <i class="bi bi-person"></i> 担当スタッフについて </p>
+          <p> 平日・土曜日：<strong>スパニスト Yuka</strong><br>
+            日曜日・祝日：<strong>スパニスト Maki</strong> </p>
+          <small> ※出勤状況により担当スタッフが変更となる場合があります。 </small>
+        </div>
         <div class="month">
           <button id="prev" type="button" aria-label="前の月">‹</button>
           <b id="monthLabel"></b>
@@ -195,14 +201,24 @@
         <h2>ご予約を承りました</h2>
         <p class="lead" id="doneMessage"> 確認メッセージをLINEへお送りしました。 </p>
         <div class="summary">
-          <b id="doneType"></b> <span id="doneDate"></span>
-        </div>
+  <b id="doneType"></b>
+  <span id="doneDate"></span>
+
+  <div class="done-staff">
+    担当：スパニスト <strong id="doneStaff"></strong>
+  </div>
+</div>
+
+<p class="staff-change-note">
+  ※出勤状況により担当スタッフが変更となる場合があります。<br>
+  変更となる場合は、ご予約確定後にLINEにてご連絡いたします。
+</p>
         <button class="primary" id="toLine" type="button">LINEへ戻る</button>
       </div>
     </section>
   </main>
 </div>
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script> 
-<script src="script.js?v=13"></script>
+<script src="script.js?v=14"></script>
 </body>
 </html>

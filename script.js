@@ -620,7 +620,7 @@ $('reserve').onclick = async () => {
 
     await new Promise(r => setTimeout(r, 1000));
 
-    fillDone(result.lineSent);
+    fillDone(result.lineSent, result.staffName);
     show('s4');
     calendarStatus = {};
     daySlots = {};
@@ -636,13 +636,14 @@ $('reserve').onclick = async () => {
   }
 };
 
-function fillDone(lineSent) {
+function fillDone(lineSent, staffName) {
   const dt = `${fmt(state.date)} ${state.time}～`;
 
   $('backBtn').style.display = 'none';
 
   $('doneType').textContent = state.type;
   $('doneDate').textContent = dt;
+  $('doneStaff').textContent = staffName || '';
 
   if (lineSent) {
     $('doneMessage').textContent =
