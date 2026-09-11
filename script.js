@@ -484,6 +484,13 @@ $('toConfirm').onclick = () => {
   }
 
   fillConfirm();
+
+  const policyAgree = $('policyAgree');
+  if (policyAgree) {
+    policyAgree.checked = false;
+    $('reserve').disabled = true;
+  }
+
   show('s3');
 };
 
@@ -511,6 +518,13 @@ function fillConfirm() {
   $('cfStaff').textContent = state.staffName
     ? `スパニスト ${state.staffName}`
     : '確認中';
+}
+
+const policyAgree = $('policyAgree');
+if (policyAgree) {
+  policyAgree.addEventListener('change', () => {
+    $('reserve').disabled = !policyAgree.checked;
+  });
 }
 
 $('edit').onclick = async () => {
@@ -561,6 +575,11 @@ $('changeCourse').onclick = () => {
 };
 
 $('reserve').onclick = async () => {
+  if (!$('policyAgree') || !$('policyAgree').checked) {
+    alert('注意事項・キャンセルポリシーをご確認のうえ、チェックを入れてください。');
+    return;
+  }
+
   show('loading');
 
   const steps = [
@@ -589,6 +608,7 @@ $('reserve').onclick = async () => {
     name: $('name').value.trim(),
     tel: $('tel').value.trim(),
     memo: $('memo').value.trim(),
+    policyAgreed: $('policyAgree').checked,
     userId: lineUserId
   };
 

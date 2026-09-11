@@ -172,6 +172,7 @@
           <p class="notice-title"><strong>ご予約前にご確認ください</strong></p>
           <ul>
             <li>当日キャンセル・無断キャンセルはキャンセル料を頂戴しております。ご予約の変更・キャンセルは前日までにご連絡をお願いいたします。</li>
+            <li>ご予約時間を15分以上過ぎてもご連絡がない場合は、無断キャンセル扱いとさせていただきます。無断キャンセルの場合、次回ご予約時にキャンセル料を頂戴いたします。</li>
             <li>飲酒されている方への施術はお受けできません。</li>
             <li>カウンセリングの結果、施術をお断りさせていただく場合がございます。</li>
             <li>お仕上げは簡単なブローとなります。</li>
@@ -179,8 +180,12 @@
             <li>当店は完全個室ではございません。</li>
           </ul>
         </div>
+        <label class="policy-agree" for="policyAgree">
+          <input type="checkbox" id="policyAgree">
+          <span>上記の注意事項・キャンセルポリシーを確認しました</span>
+        </label>
         <p class="note"> 上記の内容をご確認いただき、問題がなければご予約へお進みください。 </p>
-        <button class="primary" id="reserve" type="button">この内容で予約する</button>
+        <button class="primary" id="reserve" type="button" disabled>この内容で予約する</button>
         <button class="secondary" id="edit" type="button">内容を修正する</button>
       </div>
     </section>
@@ -207,7 +212,7 @@
         <div class="summary">
           <b id="doneType"></b> <span id="doneDate"></span>
           <div class="done-staff">
-            担当：スパニスト <span id="doneStaff"></strong>
+            担当：スパニスト <span id="doneStaff"></span>
           </div>
         </div>
         <p class="staff-change-note"> ※出勤状況により担当スタッフが変更となる場合があります。<br>
@@ -218,6 +223,6 @@
   </main>
 </div>
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script> 
-<script src="script.js?v=14"></script>
+<script src="script.js?v=15"></script>
 </body>
 </html>

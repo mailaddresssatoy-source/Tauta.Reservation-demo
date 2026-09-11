@@ -761,3 +761,39 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
   font-weight: inherit;
   margin-top: 0;
 }
+
+/* キャンセルポリシー同意 */
+.policy-agree {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 18px 0 0 !important;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #faf8f2;
+  cursor: pointer;
+  font-weight: 600 !important;
+  line-height: 1.6;
+}
+
+.policy-agree input {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  margin: 2px 0 0;
+  padding: 0;
+  accent-color: var(--primary);
+}
+
+.policy-agree span {
+  font-size: 13px !important;
+  color: var(--text) !important;
+}
+
+#reserve:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
