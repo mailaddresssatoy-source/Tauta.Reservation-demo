@@ -243,7 +243,7 @@ function renderCal() {
   <span class="day-status">
     ${
       isToday
-        ? '<i class="bi bi-telephone-fill"></i>'
+        ? '<span class="today-label">本日</span>'
         : isPastDate
           ? '<i class="bi bi-dash-lg"></i>'
           : s.l
