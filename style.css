@@ -798,7 +798,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
   transform: none;
 }
 .today-label {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--primary);
   white-space: nowrap;
