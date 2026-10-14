@@ -6,6 +6,7 @@ const now = new Date();
 
 let calendarStatus = {};
 let daySlots = {};
+let staffByDateTime = {};
 let lineUserId = '';
 
 let state = {
@@ -182,8 +183,16 @@ async function loadDaySlots(date) {
       return false;
     }
 
+    // 予約可能時間
     daySlots[date] = result.times || [];
-    state.staffName = result.staffName || '';
+
+    // 時間ごとの担当スタッフ
+    staffByDateTime[date] =
+      result.staffByTime || {};
+
+    // 時間を選ぶまでは担当者未選択
+    state.staffName = '';
+
     renderTimes();
 
     return true;
@@ -316,7 +325,18 @@ function renderTimes() {
 
     b.onclick = () => {
       state.time = t;
+
+      // 選択した日時の担当スタッフを設定
+      state.staffName =
+        (
+          staffByDateTime[state.date]
+          && staffByDateTime[state.date][t]
+        )
+        ? staffByDateTime[state.date][t]
+        : '';
+
       renderTimes();
+
       document.querySelector('.form').scrollIntoView({
         behavior: 'smooth'
       });
@@ -374,6 +394,10 @@ $('toDate').onclick = async () => {
 
   state.date = '';
   state.time = '';
+  state.staffName = '';
+
+  daySlots = {};
+  staffByDateTime = {};
 
   $('typeLabel').textContent = state.type;
   if (state.options.length) {
@@ -413,6 +437,7 @@ $('prev').onclick = async () => {
   state.date = '';
   state.time = '';
   daySlots = {};
+  staffByDateTime = {};
 
   $('detail').classList.remove('open');
 
@@ -431,6 +456,7 @@ $('next').onclick = async () => {
   state.date = '';
   state.time = '';
   daySlots = {};
+  staffByDateTime = {};
 
   $('detail').classList.remove('open');
 
@@ -555,6 +581,7 @@ $('changeCourse').onclick = () => {
   state.staffName = '';
 
   daySlots = {};
+  staffByDateTime = {};
   calendarStatus = {};
 
   $('detail').classList.remove('open');
@@ -625,7 +652,10 @@ $('reserve').onclick = async () => {
       const failedDate = state.date;
 
       state.time = '';
+      state.staffName = '';
+
       delete daySlots[failedDate];
+      delete staffByDateTime[failedDate];
 
       show('s2');
       await loadCalendarStatus();
@@ -652,6 +682,7 @@ $('reserve').onclick = async () => {
     show('s4');
     calendarStatus = {};
     daySlots = {};
+    staffByDateTime = {};
 
   } catch (e) {
     console.error(e);
