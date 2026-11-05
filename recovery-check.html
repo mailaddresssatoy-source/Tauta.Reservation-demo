@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Tauta. 隔離復旧試験</title>
+<h1>Tauta. 隔離復旧試験</h1><p>専用カレンダーにダミー予約を登録し、テスト用LINEとメールに通知します。</p>
+<button id="run" disabled>LINEログイン・試験を進める</button><p id="status" role="status">LINEを読み込んでいます。</p>
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<script>
+const endpoint = "https://script.google.com/macros/s/AKfycbxJf6gPLJM1ujTunGBTzS-Ps1BrAUgaUjW4BengSuo6yY8oJ6QbAmEYIzY9ICNfmqbjWQ/exec";
+const button = document.getElementById('run');
+const status = document.getElementById('status');
+let booking;
+async function request(query, body) {
+  const response = await fetch(endpoint + query, body ? {method:'POST', headers:{'Content-Type':'text/plain;charset=UTF-8'}, body:JSON.stringify(body)} : {});
+  if (!response.ok) throw new Error();
+  return response.json();
+}
+async function chooseSlot() {
+  for (let day = 14; day < 21; day++) {
+    const date = new Date(Date.now() + day * 86400000 + 9 * 3600000).toISOString().slice(0,10);
+    const result = await request('?action=day-slots&duration=60&date=' + date);
+    if (result.success && Array.isArray(result.times) && result.times.length) return {date,time:result.times[0]};
+  }
+  throw new Error();
+}
+button.onclick = async () => {
+  button.disabled = true;
+  try {
+    if (!liff.isLoggedIn()) { liff.login({redirectUri: location.origin + location.pathname}); return; }
+    const idToken = liff.getIDToken();
+    if (!idToken) { status.textContent='IDトークンを取得できません。LINEでログインし直してください。'; return; }
+    if (!booking) booking = {...await chooseSlot(),requestId:crypto.randomUUID(),policyAgreed:true,name:'DUMMY TAUTA RECOVERY',tel:'00000000000',type:'Tauta.u Spa 60分 ショートコース',options:[],memo:'SYNTHETIC RECOVERY TEST ONLY'};
+    status.textContent = 'テスト用カレンダーに登録しています。';
+    const result = await request('?action=reserve', {...booking,idToken});
+    if (!result.success) { status.textContent='登録が拒否されました。試験担当者へお知らせください。'; return; }
+    status.textContent = 'テスト予約の受付を確認しました。LINEとメールの着信を確認してください。';
+    return;
+  } catch (_) {
+    status.textContent='試験用GASとの通信結果を確認できませんでした。カレンダーを照合してください。';
+  }
+};
+liff.init({liffId:'2010632376-xzxeSvRC'}).then(() => {
+  status.textContent = liff.isLoggedIn() ? 'LINEログイン済みです。ボタンを押すとダミー予約を実行します。' : 'ボタンを押してLINEにログインしてください。';
+  button.disabled = false;
+}).catch(() => { status.textContent='LINEを初期化できませんでした。'; });
+</script></html>
